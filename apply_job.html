@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Apply Job Card -->
+    <div class="row justify-content-center" style="min-height: 100vh; align-items: center;">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+                <div class="card-header py-4" style="background: transparent; border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+                    <h2 class="text-center mb-0" style="font-family: 'Poppins', sans-serif; font-weight: 600; color: #2C3E50;">{{ translations.apply}}</h2>
+                </div>
+                <div class="card-body p-5">
+                    <form method="POST" action="{{ url_for('apply_job', job_id=job_id) }}">
+                        <div class="mb-4">
+                            <label for="email" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.email }}</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;">
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.phone }}</label>
+                            <input type="text" class="form-control form-control-lg" id="phone" name="phone" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-lg" style="
+                                background: linear-gradient(135deg, #3498DB, #2980B9); /* Blue gradient */
+                                border: none;
+                                border-radius: 10px;
+                                padding: 10px;
+                                font-family: 'Poppins', sans-serif;
+                                font-weight: 600;
+                                color: white;
+                                font-size: 14px;
+                            ">
+                                {{ translations.submit_application }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

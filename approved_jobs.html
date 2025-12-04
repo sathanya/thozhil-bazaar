@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ translations.approved_jobs }}</h2>
+    <div class="jobs">
+        {% for application in applications %}
+            <div class="job-card">
+                <h3>{{ application.job.title }}</h3>
+                <p>{{ application.job.description }}</p>
+                <p><strong>{{ translations.company }}:</strong> {{ application.job.company }}</p>
+                <p><strong>{{ translations.location }}:</strong> {{ application.job.location }}</p>
+                <p><strong>{{ translations.status }}:</strong> {{ application.status }}</p>
+                <a href="{{ url_for('view_messages', application_id=application.id) }}">{{ translations.view_messages }}</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

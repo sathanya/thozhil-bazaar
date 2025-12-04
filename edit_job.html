@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <h1 class="text-center mb-4" style="font-weight: 600; color: #2C3E50;">{{ translations.edit_job }}: {{ job.title }}</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg border-0" style="border-radius: 12px; overflow: hidden; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+                    <div class="card-body p-5">
+                        <form method="POST" action="{{ url_for('edit_job', job_id=job.id) }}">
+                            <div class="mb-4">
+                                <label for="title" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.title }}</label>
+                                <input type="text" class="form-control form-control-lg" id="title" name="title" value="{{ job.title }}" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;">
+                            </div>
+                            <div class="mb-4">
+                                <label for="description" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.description }}</label>
+                                <textarea class="form-control form-control-lg" id="description" name="description" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px; resize: vertical;">{{ job.description }}</textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="company" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.company }}</label>
+                                <input type="text" class="form-control form-control-lg" id="company" name="company" value="{{ job.company }}" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;">
+                            </div>
+                            <div class="mb-4">
+                                <label for="location" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.location }}</label>
+                                <input type="text" class="form-control form-control-lg" id="location" name="location" value="{{ job.location }}" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;">
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-lg" style="
+                                    background: linear-gradient(135deg, #3498DB, #2980B9); /* Blue gradient */
+                                    border: none;
+                                    border-radius: 10px;
+                                    padding: 12px;
+                                    font-family: 'Poppins', sans-serif;
+                                    font-weight: 600;
+                                    color: white;
+                                ">
+                                    {{ translations.update_job }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

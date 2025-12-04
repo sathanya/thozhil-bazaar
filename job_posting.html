@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Job Posting Card -->
+    <div class="row justify-content-center" style="min-height: 100vh; align-items: center;">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+                <div class="card-header py-4" style="background: transparent; border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+                    <h2 class="text-center mb-0" style="font-family: 'Poppins', sans-serif; font-weight: 600; color: #2C3E50;">{{ translations.post_a_job }}</h2>
+                    <p class="text-center mt-2" style="font-family: 'Poppins', sans-serif; color: #666; font-size: 14px;">{{ translations.fill_out_form_to_post_job }}</p>
+                </div>
+                <div class="card-body p-5">
+                    <form method="POST" action="{{ url_for('job_posting') }}">
+                        <div class="mb-4">
+                            <label for="title" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.title }}</label>
+                            <input type="text" class="form-control form-control-lg" id="title" name="title" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;">
+                        </div>
+                        <div class="mb-4">
+                            <label for="description" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.description }}</label>
+                            <textarea class="form-control form-control-lg" id="description" name="description" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px; resize: vertical;"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="company" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.company }}</label>
+                            <input type="text" class="form-control form-control-lg" id="company" name="company" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;">
+                        </div>
+                        <div class="mb-4">
+                            <label for="location" class="form-label" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #444; font-size: 14px;">{{ translations.location }}</label>
+                            <input type="text" class="form-control form-control-lg" id="location" name="location" required style="border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 10px; font-family: 'Poppins', sans-serif; font-size: 14px;">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-lg" style="
+                                background: linear-gradient(135deg, #3498DB, #2980B9); /* Blue gradient */
+                                border: none;
+                                border-radius: 10px;
+                                padding: 10px;
+                                font-family: 'Poppins', sans-serif;
+                                font-weight: 600;
+                                color: white;
+                                font-size: 14px;
+                            ">
+                                {{ translations.post_job }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

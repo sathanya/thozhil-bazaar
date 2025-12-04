@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <h1 class="text-center mb-4" style="font-weight: 600; color: #2C3E50;">{{ translations.application_management }}</h1>
+        {% if application_details %}
+            <div class="row">
+                {% for detail in application_details %}
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            {{ detail.job.title }}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ detail.employee.name }}</h5>
+                            <p class="card-text">
+                                <strong>{{ translations.mobile }}:</strong> {{ detail.employee.mobile }}<br>
+                                <strong>{{ translations.status }}:</strong> {{ detail.application.status }}<br>
+                                <strong>{{ translations.email }}:</strong> {{ detail.application.email }}<br>
+                                <strong>{{ translations.phone }}:</strong> {{ detail.application.phone }}<br>
+                                <strong>{{ translations.message }}:</strong> {{ detail.application.message if detail.application.message else translations.no_message }}
+                            </p>
+                            <div class="actions">
+                                {% if detail.application.status == 'pending' %}
+                                <a href="{{ url_for('approve_application', application_id=detail.application.id) }}" class="btn btn-success btn-actions">{{ translations.approve }}</a>
+                                <a href="{{ url_for('reject_application', application_id=detail.application.id) }}" class="btn btn-danger btn-actions">{{ translations.reject }}</a>
+                                {% else %}
+                                <span class="text-muted">{{ translations.no_actions_available }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <!-- View Messages Link -->
+                            <a href="{{ url_for('view_messages', application_id=detail.application.id) }}" class="btn btn-info btn-sm">{{ translations.view_messages }}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center">{{ translations.no_applications_found }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

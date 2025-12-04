@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ translations.job_listing }}</h2>
+
+    <!-- Filter Form -->
+    <form method="GET" action="{{ url_for('job_listing') }}" class="mb-4">
+        <div class="filter-options">
+            <input type="text" name="filter_title" placeholder="{{ translations.filter_by_title }}" value="{{ request.args.get('filter_title', '') }}">
+            <input type="text" name="filter_location" placeholder="{{ translations.filter_by_location }}" value="{{ request.args.get('filter_location', '') }}">
+            <input type="date" name="filter_date" value="{{ request.args.get('filter_date', '') }}">
+            <button type="submit" class="btn-filter">{{ translations.filter }}</button>
+        </div>
+    </form>
+
+    <!-- Job List -->
+    <div class="jobs">
+        {% for job in jobs %}
+            <div class="job-card">
+                <h3>{{ job.title }}</h3>
+                <p>{{ job.description }}</p>
+                <p><strong>{{ translations.company }}:</strong> {{ job.company }}</p>
+                <p><strong>{{ translations.location }}:</strong> {{ job.location }}</p>
+                <p><strong>{{ translations.posted_at }}:</strong> {{ job.posted_at }}</p>
+
+                <!-- Actions for Employees -->
+                {% if session['role'] == 'employee' %}
+                    {% if job.id in applied_job_ids %}
+                        <span style="color: green;">✅ {{ translations.applied }}</span>
+                    {% else %}
+                        <a href="{{ url_for('apply_job', job_id=job.id) }}" class="btn btn-primary">{{ translations.apply }}</a>
+                    {% endif %}
+                {% endif %}
+
+                <!-- Actions for Employers -->
+                {% if session['role'] == 'employer' and session['user_id'] == job.user_id %}
+                    <div class="employer-actions">
+                        <a href="{{ url_for('edit_job', job_id=job.id) }}" class="btn btn-warning">{{ translations.edit }}</a>
+                        <a href="{{ url_for('delete_job', job_id=job.id) }}" class="btn btn-danger" onclick="return confirm('{{ translations.confirm_delete_job }}')">{{ translations.delete }}</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+   
+    <!-- Pagination -->
+    <div class="pagination">
+        
+        {% if jobs.has_prev %}
+            <a href="{{ url_for('job_listing', page=jobs.prev_num, filter_title=request.args.get('filter_title'), filter_location=request.args.get('filter_location'), filter_date=request.args.get('filter_date')) }}" class="page-link">&laquo; {{ translations.previous }}</a>
+        {% endif %}
+        {% for page_num in jobs.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+            {% if page_num %}
+                <a href="{{ url_for('job_listing', page=page_num, filter_title=request.args.get('filter_title'), filter_location=request.args.get('filter_location'), filter_date=request.args.get('filter_date')) }}" class="page-link {% if jobs.page == page_num %}active{% endif %}">{{ page_num }}</a>
+            {% else %}
+                <span class="page-link disabled">...</span>
+            {% endif %}
+        {% endfor %}
+        {% if jobs.has_next %}
+            <a href="{{ url_for('job_listing', page=jobs.next_num, filter_title=request.args.get('filter_title'), filter_location=request.args.get('filter_location'), filter_date=request.args.get('filter_date')) }}" class="page-link">{{ translations.next }} &raquo;</a>
+        {% endif %}
+    </div>
+{% endblock %}

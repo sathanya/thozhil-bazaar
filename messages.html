@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ translations.messages_for_job }}: {{ application.job.title }}</h2>
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message">
+                <p><strong>{{ message.sender.name }}:</strong> {{ message.content }}</p>
+                <p><small>{{ message.timestamp }}</small></p>
+            </div>
+        {% endfor %}
+    </div>
+    <form method="POST" action="{{ url_for('view_messages', application_id=application.id) }}">
+        <textarea name="content" required placeholder="{{ translations.type_your_message }}"></textarea>
+        <button type="submit">{{ translations.send_message }}</button>
+    </form>
+{% endblock %}
